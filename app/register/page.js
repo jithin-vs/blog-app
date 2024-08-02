@@ -3,10 +3,15 @@ import InputField from "@/components/InputField/InputFileld.js";
 import styles from "./register.module.css";
 
 const Register = () => {
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const response = await fetch('/api/auth/register')
+  }
   return (
     <section className={styles.mainSection}>
       <h2>Register</h2>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <InputField label="Name" type="text" name="name" id="name" />
         <InputField label="Email" type="email" name="email" id="email" />
         <InputField
