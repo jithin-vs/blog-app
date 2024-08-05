@@ -44,3 +44,9 @@
   .span a {
     color: var(--clr);
   }
+
+  .p .error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+  }

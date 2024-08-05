@@ -1,20 +1,50 @@
-import React from "react";
+'use client';
+
+import React, { useState } from "react";
 import InputField from "@/components/InputField/InputFileld.js";
 import styles from "./login.module.css"
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
     
 const Login = () => {
+  const router = useRouter();
+  const [error, setError] = useState(""); 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const username = formData.get("username");
+    const password = formData.get("password");
+    try {
+      const response = await signIn('Credentials', {
+        username,
+        password,
+        redirect: false,
+      })
+      console.log(response);
+      if (response.error) {
+        setError("invalid credentials");
+        return;
+      }
+      router.replace('/');
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
   return (
     <section className={styles.mainSection}>
       <h2>Login</h2>
-      <form className={styles.form}>
-        <InputField label="Email" type="email" name="email" id="email" />
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <InputField label="Username" type="text" name="username" id="username" />
         <InputField label="Password" type="password" name="password" id="password" />
         <span className={styles.span}>
           <a href="#">Forgot password?</a>
         </span>
         <input className={styles.submit} type="submit" value="Log in" />
         <span className={styles.span}>
-          Don't have an account? <a href="#">Sign up</a>
+          Don't have an account? <Link href='/register'>Sign Up</Link>
         </span>
       </form>
     </section>
