@@ -7,10 +7,7 @@ const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
-      credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
-      },
+      credentials: {},
       async authorize(credentials) {
         const { username, password } = credentials;
         await connectDB();

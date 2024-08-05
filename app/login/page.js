@@ -29,7 +29,16 @@ const Login = () => {
       }
       router.replace('/');
     } catch (error) {
-      console.log(error);
+      	if (error instanceof AuthError) {
+          switch (error.type) {
+            case "CredentialsSignin":
+              console.log( "Invalid credentials", error);
+            default:
+              console.log(  "Something went wrong",error);
+                }
+          throw error
+        }
+
     }
 
   }

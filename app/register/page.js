@@ -67,7 +67,7 @@ const Register = () => {
         </span>
         <input className={styles.submit} type="submit" value="Log in" />
         <span className={styles.span}>
-          Already have an account?  <Link href = '/login'>Sign In</Link>
+          Already have an account?  <Link href = '/login'>Sign INn</Link>
         </span>
       </form>
     </section>
