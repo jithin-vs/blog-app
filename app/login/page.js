@@ -20,14 +20,13 @@ const Login = () => {
       const response = await signIn('Credentials', {
         username,
         password,
-        redirect: false,
       })
       console.log(response);
       if (response.error) {
         setError("invalid credentials");
         return;
       }
-      router.replace('/');
+      // router.replace('/');
     } catch (error) {
       	if (error instanceof AuthError) {
           switch (error.type) {
@@ -36,9 +35,8 @@ const Login = () => {
             default:
               console.log(  "Something went wrong",error);
                 }
-          throw error
         }
-
+      throw error;
     }
 
   }

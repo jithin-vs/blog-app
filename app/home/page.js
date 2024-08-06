@@ -1,21 +1,18 @@
 import React from "react";
 import styles from "./home.module.css";
-// import Like from "@/components/Like/Like.js";
+import BlogCard from "@/components/BlogCard/BlogCard";
+import SideBar from "@/components/SideBar/SideBar";
+import Header from "@/components/Header/Header";
 
 const Home = () => {
-    return (
-    <div className={styles.card}>
-      <div className={styles.cardImage}></div>
-      <div className={styles.category}> Illustration </div>
-      <div className={styles.heading}>
-        {" "}
-        A heading that must span over two lines
-        <div className={styles.author}>
-          {" "}
-          By <span className={styles.name}>Abi</span> 4 days ago
-        </div>
-          </div>
-            </div>
+  return (
+    <div className="flex flex-col h-screen">
+      <Header />
+      <div className="flex flex-1">
+        <SideBar className="w-1/4" />
+        <BlogCard className="flex-1" />
+      </div>
+    </div>
   );
 };
 

@@ -1,54 +1,27 @@
-/*------ Settings ------*/
-.container {
-    --color: #a5a5b0;
-    --size: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    font-size: var(--size);
-    user-select: none;
-    fill: var(--color);
-  }
-  
-  .container .thumbs-up-regular {
-    position: absolute;
-    animation: keyframes-fill .5s;
-  }
-  
-  .container .thumbs-up-solid {
-    position: absolute;
-    display: none;
-    animation: keyframes-fill .5s;
-  }
-  
-  /* ------ On check event ------ */
-  .container input:checked ~ .thumbs-up-regular {
-    display: none;
-  }
-  
-  .container input:checked ~ .thumbs-up-solid {
-    display: block;
-  }
-  
-  /* ------ Hide the default checkbox ------ */
-  .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  /* ------ Animation ------ */
-  @keyframes keyframes-fill {
-    0% {
-      transform: scale(0);
-      opacity: 0;
-    }
-  
-    50% {
-      transform: scale(1.2) rotate(-10deg);
-    }
-  }
+.likeContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.likeButton {
+  background-color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.likeButton:hover {
+  background-color: #f7f7f7;
+}
+
+.likeButton i {
+  margin-right: 10px;
+}
+
+.likeCount {
+  font-size: 16px;
+  color: #999;
+  margin-left: 10px;
+}
