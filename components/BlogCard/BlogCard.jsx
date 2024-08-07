@@ -6,7 +6,7 @@ import styles from "./BlogCard.module.css";
 
 const BlogCard = ({ title, description, image, author }) => {
   return (
-    <div class="w-full max-h-[50vh] overflow-auto bg-white rounded-lg shadow-md dark:bg-gray-800 flex items-center justify-center">
+    <div className="w-full max-h-[50vh] overflow-auto bg-white shadow-md dark:bg-gray-800 flex items-center justify-center">
       {image && (
         <Image
           className="object-cover w-full h-64"

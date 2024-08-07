@@ -14,7 +14,7 @@ const Header = ({ image }) => {
             <Image
               className="w-auto h-6 sm:h-7"
               src={image}
-              alt="Logo"
+              alt="next.svg"
               width={500}
               height={300}
             />

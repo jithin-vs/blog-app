@@ -18,7 +18,8 @@
     max-width: 300px;
   }
    
-  .form .submit {
+   .submit {
+    justify-content: center;
     padding: 1rem 0.75rem;
     width: 100%;
     display: flex;

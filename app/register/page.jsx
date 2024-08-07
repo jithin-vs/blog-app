@@ -33,13 +33,18 @@ const Register = () => {
       password: formData.get("password"),
       confirmPassword :formData.get("confirmPassword")
     }
-    const response = await axios.post('/api/auth/register', user)
-    console.log(response);
-    if (response.status === 200) {
-      const form = e.target;
-      form.reset();
-      router.push('/login');
+    try {
+      const response = await axios.post('/api/auth/register', user)
+      console.log(response);
+      if (response.status === 200) {
+        const form = e.target;
+        form.reset();
+        router.push('/login');
+      }
+    } catch (error) {
+      console.log("error:\n",error);
     }
+
   }
 
   return (

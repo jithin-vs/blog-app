@@ -17,27 +17,22 @@ const Login = () => {
     const username = formData.get("username");
     const password = formData.get("password");
     try {
-      const response = await signIn('Credentials', {
+      const response = await signIn('credentials', {
         username,
         password,
-      })
-      console.log(response);
-      if (response.error) {
-        setError("invalid credentials");
+        redirect: false, 
+      });
+      
+      if (response?.error) {
+        setError("Invalid credentials");
         return;
       }
-      // router.replace('/');
+      router.replace('/');
     } catch (error) {
-      	if (error instanceof AuthError) {
-          switch (error.type) {
-            case "CredentialsSignin":
-              console.log( "Invalid credentials", error);
-            default:
-              console.log(  "Something went wrong",error);
-                }
-        }
-      throw error;
+      console.log("An error occurred:", error);
+      setError("An error occurred during login");
     }
+
 
   }
   return (
@@ -49,7 +44,7 @@ const Login = () => {
         <span className={styles.span}>
           <a href="#">Forgot password?</a>
         </span>
-        <input className={styles.submit} type="submit" value="Log in" />
+        <button className={styles.submit} type="submit" value="Log in" >Log In</button>
         <span className={styles.span}>
           Don't have an account? <Link href='/register'>Sign Up</Link>
         </span>
