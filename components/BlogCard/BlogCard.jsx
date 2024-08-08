@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { MdThumbUpOffAlt } from "react-icons/md";
+import { GoThumbsup } from "react-icons/go";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import styles from "./BlogCard.module.css";
 
@@ -25,7 +25,6 @@ const BlogCard = ({ title, description, image, author }) => {
           <a
             href="#"
             className="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline"
-            tabindex="0"
             role="link"
           >
             I Built A Successful Blog In One Year
@@ -44,7 +43,6 @@ const BlogCard = ({ title, description, image, author }) => {
               <a
                 href="#"
                 className="mx-2 font-semibold text-gray-700 dark:text-gray-200"
-                tabindex="0"
                 role="link"
               >
                 Jone Doe
@@ -54,8 +52,8 @@ const BlogCard = ({ title, description, image, author }) => {
               </span>
             </div>
             <div className="flex gap-4 items-center">
-              <MdThumbUpOffAlt />
-              <HiOutlineChatBubbleOvalLeft />
+              <GoThumbsup size={18} />
+              <HiOutlineChatBubbleOvalLeft size={18} />
             </div>
           </div>
         </div>

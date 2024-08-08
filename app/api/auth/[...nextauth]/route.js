@@ -4,7 +4,9 @@ import NextAuth from "next-auth";
 import bcrypt from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const handler = NextAuth({
+
+
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -17,7 +19,7 @@ const handler = NextAuth({
           if (user) {
             const isValid = await bcrypt.compare(password, user.password);
             if (!isValid) return null;
-            return user;
+            return { id: user._id, name: user.name,username:user.username ,email: user.email };  
           } else {
             return null;
           }
@@ -28,12 +30,29 @@ const handler = NextAuth({
     }),
   ],
   session: {
-    strategy:"jwt"
+    strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn:'/login'
-  }
-});
+    signIn: "/login",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.username = user.username; 
+      }
+      return token;
+    },
+    async session({ session, token }) {
+
+      if (token) {
+        session.user.username = token.username; 
+      }
+      return session;
+    },
+  },
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

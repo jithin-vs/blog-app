@@ -11,13 +11,14 @@ const Header = ({ image }) => {
       <div className="container px-6 py-3 mx-auto flex flex-col md:flex-row md:items-center">
         <div className="flex items-center justify-between w-full md:w-auto">
           <a href="#">
-            <Image
+            {image && <Image
               className="w-auto h-6 sm:h-7"
               src={image}
               alt="next.svg"
               width={500}
               height={300}
             />
+            }
           </a>
 
           <div className="flex lg:hidden">

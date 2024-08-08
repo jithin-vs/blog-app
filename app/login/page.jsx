@@ -27,7 +27,7 @@ const Login = () => {
         setError("Invalid credentials");
         return;
       }
-      router.replace('/');
+      router.replace('/home');
     } catch (error) {
       console.log("An error occurred:", error);
       setError("An error occurred during login");
