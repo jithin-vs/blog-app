@@ -1,10 +1,28 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
+import React, { useState } from "react";
 import { GoThumbsup } from "react-icons/go";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
-import styles from "./BlogCard.module.css";
+import Comment from "../Comment/Comment";
 
 const BlogCard = ({ title, description, image, author }) => {
+  const [likeCount, setLikeCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
+  const [showComments, setShowComments] = useState(false);
+  const handleLike = () => {
+    if (likeCount === 0) return setLikeCount(1);
+    return setLikeCount(0);
+    // console.log("Like button clicked");
+  };
+
+  const handleComment = () => {
+    // setCommentCount((prevCount) => prevCount + 1);
+    // console.log("Comment button clicked");
+    setShowComments((prev) => !prev);
+  };
+
   return (
     <div className="w-full max-h-[50vh] overflow-auto bg-white shadow-md dark:bg-gray-800 flex items-center justify-center">
       {image && (
@@ -22,13 +40,13 @@ const BlogCard = ({ title, description, image, author }) => {
           <span className="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">
             Product
           </span>
-          <a
-            href="#"
+          <Link
+            href="/post"
             className="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline"
             role="link"
           >
             I Built A Successful Blog In One Year
-          </a>
+          </Link>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie
             parturient et sem ipsum volutpat vel. Natoque sem et aliquam mauris
@@ -52,9 +70,30 @@ const BlogCard = ({ title, description, image, author }) => {
               </span>
             </div>
             <div className="flex gap-4 items-center">
-              <GoThumbsup size={18} />
-              <HiOutlineChatBubbleOvalLeft size={18} />
+              <button
+                type="button"
+                onClick={handleLike}
+                className="flex items-center px-4 py-2 text-sm font-medium text-gray-800 bg-gray-200 rounded hover:bg-gray-300"
+              >
+                <GoThumbsup size={18} className="mr-2" />
+                <span>Like {likeCount > 0 && `(${likeCount})`}</span>
+              </button>
+              <button
+                type="button"
+                onClick={handleComment}
+                className="flex items-center px-4 py-2 text-sm font-medium text-gray-800 bg-gray-200 rounded hover:bg-gray-300"
+              >
+                <HiOutlineChatBubbleOvalLeft size={18} className="mr-2" />
+                <span>Comment {commentCount > 0 && `(${commentCount})`}</span>
+              </button>
             </div>
+          </div>
+          <div className="flex flex-1">
+            {showComments && (
+              <div className="flex-grow w-full">
+                <Comment />
+              </div>
+            )}
           </div>
         </div>
       </div>

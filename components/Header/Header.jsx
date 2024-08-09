@@ -17,8 +17,7 @@ const Header = ({ image }) => {
               alt="next.svg"
               width={500}
               height={300}
-            />
-            }
+            />}
           </a>
 
           <div className="flex lg:hidden">
@@ -64,11 +63,11 @@ const Header = ({ image }) => {
         </div>
 
         <div
-          className={`fixed inset-0 z-20 w-full px-6 py-4 transition-transform duration-300 ease-in-out bg-white dark:bg-gray-800 md:static md:w-auto md:px-0 ${
-            isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
-          }`}
+          className={`${
+            isOpen ? 'block' : 'hidden'
+          } md:block md:flex-grow md:flex md:items-center`}
         >
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between justify-end">
             <div className="flex flex-col md:flex-row md:space-x-4">
               <a
                 href="#"
