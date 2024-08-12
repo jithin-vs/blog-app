@@ -11,6 +11,15 @@ export const generateUniqueId = () => {
   return uuidv4();
 };
 
+function transformImagePath(dbPath) {
+  let newPath = dbPath.replace(/\\/g, '/');
+
+  if (!newPath.startsWith('/')) {
+      newPath = '/' + newPath;
+  }
+
+  return newPath;
+}
 export async function POST(req) {
   try {
     await connectDB();
@@ -24,18 +33,19 @@ export async function POST(req) {
     if (!token) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
-
+    console.log(token);
     const userId = token.sub;
-    const username = token.username;
+    const name = token.name;
     const profilePic = token.profilePic || "";
     const buffer = Buffer.from(await image.arrayBuffer());
     const filename = Date.now() + generateUniqueId() + "-" + image.name;
 
-    const fileDir = `public/uploads/${username}/`;
+    const fileDir = `/uploads/${userId}/`;
     if (!fs.existsSync(fileDir)) {
       fs.mkdirSync(fileDir, { recursive: true });
     }
     const filePath = path.join(fileDir, filename);
+    const newFilePath = transformImagePath(filePath)
     await writeFile(path.join(process.cwd(), filePath), buffer);
     console.log("success!!");
 
@@ -44,10 +54,10 @@ export async function POST(req) {
       content,
       author: {
         userId,
-        name: username,
+        name: name,
         profilePic,
       },
-      imageUrl: filePath,
+      imageUrl: newFilePath,
     });
     return NextResponse.json({ message: "Success!!" }, { status: 201 });
   } catch (error) {

@@ -2,9 +2,6 @@ import Blog from "@/models/Blog";
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
-import path from "path";
-import fs from "fs";
-import { writeFile } from "fs/promises";
 import { connectDB } from "@/lib/mongodb";
 
 export const generateUniqueId = () => {
@@ -24,8 +21,10 @@ export async function GET(req) {
     const username = token.username;
     const blogs = await Blog.find().sort({ createdAt: -1 });
     return NextResponse.json(
-      { message: "Success!!" },
-      { blogs: blogs },
+      {
+        message: "Success!!",
+        blogs: blogs
+      },
       { status: 201 }
     );
   } catch (error) {

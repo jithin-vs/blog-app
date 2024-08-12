@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import PostButton from "../Buttons/PostButton";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 
@@ -6,6 +7,33 @@ import ReplyButton from "../Buttons/ReplyButton";
 import SendButton from "../Buttons/SendButton";
 
 const CommentSection = () => {
+  const [comment, setComment] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!comment.trim()) {
+      alert("Comment can't be empty!");
+      return;
+    }
+
+    try {
+      const response = await axios.post('/api/PostComments', {
+        body: JSON.stringify({ comment }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert('Comment posted successfully!');
+        setComment(''); // Clear the textarea
+      } else {
+        alert('Failed to post comment.');
+      }
+    } catch (error) {
+      console.error('Error posting comment:', error);
+      alert('An error occurred. Please try again later.');
+    }
+  };
   return (
     <section className="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
       <div className="max-w-2xl mx-auto px-4">
@@ -14,7 +42,7 @@ const CommentSection = () => {
             Discussion (20)
           </h2>
         </div>
-        <form className="mb-6">
+        <form className="mb-6" onSubmit={handleSubmit}>
           <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <label htmlFor="comment" className="sr-only">
               Your comment
@@ -24,6 +52,8 @@ const CommentSection = () => {
               rows="6"
               className="px-0 w-full resize-none text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
               placeholder="Write a comment..."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
               required
             ></textarea>
           </div>

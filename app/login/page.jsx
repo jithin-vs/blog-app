@@ -14,11 +14,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const username = formData.get("username");
+    const email = formData.get("email");
     const password = formData.get("password");
     try {
       const response = await signIn("credentials", {
-        username,
+        email,
         password,
         redirect: false,
       });
@@ -54,7 +54,7 @@ const Login = () => {
           <div>
             <div className="relative flex items-center">
               <input
-                name="username"
+                name="email"
                 type="text"
                 required
                 className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800"
@@ -108,7 +108,7 @@ const Login = () => {
               Sign in
             </button>
             <p className="text-gray-800 text-sm text-center mt-6">
-              Don't have an account?{" "}
+              Don't have an account?
               <Link
                 href="/register"
                 className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap"
