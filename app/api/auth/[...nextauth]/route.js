@@ -12,14 +12,14 @@ export const authOptions = {
       name: "credentials",
       credentials: {},
       async authorize(credentials) {
-        const { username, password } = credentials;
+        const { email, password } = credentials;
         await connectDB();
         try {
-          const user = await User.findOne({ username: username });
+          const user = await User.findOne({ email: email });
           if (user) {
             const isValid = await bcrypt.compare(password, user.password);
             if (!isValid) return null;
-            return { id: user._id, name: user.name,username:user.username ,email: user.email };  
+            return { id: user._id, name: user.name ,email: user.email };  
           } else {
             return null;
           }
@@ -39,14 +39,14 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.username = user.username; 
+        token.email = user.email; 
       }
       return token;
     },
     async session({ session, token }) {
 
       if (token) {
-        session.user.username = token.username; 
+        session.user.email = token.email; 
       }
       return session;
     },

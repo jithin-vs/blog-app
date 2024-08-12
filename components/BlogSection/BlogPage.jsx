@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const BlogPage = () => {
   return (
@@ -13,9 +13,7 @@ const BlogPage = () => {
             />
 
             <div>
-              <p className="mt-6 text-sm text-blue-500 uppercase">
-                Want to know
-              </p>
+              <p className="mt-6 text-sm text-blue-500 uppercase">Want to know</p>
 
               <h1 className="max-w-lg mt-4 text-2xl font-semibold leading-tight text-gray-800 dark:text-white">
                 What do you want to know about UI
@@ -29,26 +27,22 @@ const BlogPage = () => {
                 />
 
                 <div className="mx-4">
-                  <h1 className="text-sm text-gray-700 dark:text-gray-200">
-                    Amelia Anderson
-                  </h1>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Lead Developer
-                  </p>
+                  <h1 className="text-sm text-gray-700 dark:text-gray-200">Amelia Anderson</h1>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Lead Developer</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-8 lg:w-1/4 lg:mt-0 lg:px-6">
+          {/* <div className="mt-8 lg:w-1/4 lg:mt-0 lg:px-6">
             <div>
-              <h3 className="text-blue-500 capitalize">Design instrument</h3>
+              <h3 className="text-blue-500 capitalize">Design Instrument</h3>
 
               <a
                 href="#"
-                className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 "
+                className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400"
               >
-                How to raise $100k+ by using blox ui kit on your design
+                How to raise $100k+ by using Blox UI kit on your design
               </a>
             </div>
 
@@ -59,7 +53,7 @@ const BlogPage = () => {
 
               <a
                 href="#"
-                className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 "
+                className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400"
               >
                 Should you create UI Product by using Blox?
               </a>
@@ -72,7 +66,7 @@ const BlogPage = () => {
 
               <a
                 href="#"
-                className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 "
+                className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400"
               >
                 Top 10 Blocks you can get on Blox's collection.
               </a>
@@ -81,16 +75,16 @@ const BlogPage = () => {
             <hr className="my-6 border-gray-200 dark:border-gray-700" />
 
             <div>
-              <h3 className="text-blue-500 capitalize">Premium kits</h3>
+              <h3 className="text-blue-500 capitalize">Premium Kits</h3>
 
               <a
                 href="#"
-                className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 "
+                className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400"
               >
-                Top 10 UI kit you can get on Blox's collection.
+                Top 10 UI kits you can get on Blox's collection.
               </a>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

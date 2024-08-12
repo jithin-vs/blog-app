@@ -5,21 +5,18 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { GoThumbsup } from "react-icons/go";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
-import Comment from "../Comment/Comment";
+import Comment from "../Comments/Comment";
 
 const BlogCard = ({ title, description, image, author }) => {
   const [likeCount, setLikeCount] = useState(0);
-  const [commentCount, setCommentCount] = useState(0);
   const [showComments, setShowComments] = useState(false);
+
   const handleLike = () => {
     if (likeCount === 0) return setLikeCount(1);
     return setLikeCount(0);
-    // console.log("Like button clicked");
   };
 
   const handleComment = () => {
-    // setCommentCount((prevCount) => prevCount + 1);
-    // console.log("Comment button clicked");
     setShowComments((prev) => !prev);
   };
 
@@ -55,7 +52,7 @@ const BlogCard = ({ title, description, image, author }) => {
           </p>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-4 ">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <a
@@ -84,17 +81,14 @@ const BlogCard = ({ title, description, image, author }) => {
                 className="flex items-center px-4 py-2 text-sm font-medium text-gray-800 bg-gray-200 rounded hover:bg-gray-300"
               >
                 <HiOutlineChatBubbleOvalLeft size={18} className="mr-2" />
-                <span>Comment {commentCount > 0 && `(${commentCount})`}</span>
               </button>
             </div>
           </div>
-          <div className="flex flex-1">
-            {showComments && (
+          {/* <div className="mt-4 flex flex-1">
               <div className="flex-grow w-full">
                 <Comment />
               </div>
-            )}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

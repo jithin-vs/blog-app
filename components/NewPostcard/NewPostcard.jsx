@@ -4,6 +4,7 @@ import axios from "axios";
 import { LuImage } from "react-icons/lu";
 import { MdOutlineEmojiEmotions, MdOutlinePoll } from "react-icons/md";
 import { FiX } from "react-icons/fi";
+import PostButton from "../Buttons/PostButton";
 
 const NewPostcard = () => {
   const [blogPost, setBlogPost] = useState({
@@ -174,12 +175,7 @@ const NewPostcard = () => {
               </button>
             </div>
           </div>
-          <button
-            type="submit"
-            className="flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-full focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-          >
-            Post
-          </button>
+          <PostButton>Post</PostButton>
         </div>
       </div>
     </form>

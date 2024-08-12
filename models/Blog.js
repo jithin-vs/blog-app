@@ -31,6 +31,7 @@ const blogSchema = new mongoose.Schema(
       },
       profilePic: {
         type: String,
+        default:'',
       },
       name: {
         type: String,

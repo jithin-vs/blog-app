@@ -13,14 +13,9 @@ const Register = () => {
   const router = useRouter();
   const [error, setError] = useState('');
 
-  const validateForm = (user) => {
-    if (
-			user.username.length === 0 &&
-			user.password.length === 0
-		) {
-			setError('All Fields are required.');
-    }
-   return error.length !== 0;
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   const handleSubmit = async(e) => {
@@ -29,9 +24,18 @@ const Register = () => {
     const user = {
       name:formData.get("name"),
       email: formData.get("email"),
-      username: formData.get("username"),
       password: formData.get("password"),
       confirmPassword :formData.get("confirmPassword")
+    }
+    
+    if (!validateEmail(user.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (user.password !== user.confirmPassword) {
+      setError("Passwords do not match.");
+      return;
     }
     try {
       const response = await axios.post('/api/auth/register', user)
@@ -48,34 +52,87 @@ const Register = () => {
   }
 
   return (
-    <section className={styles.mainSection}>
-      <h2>Register</h2>
-      {error && <p className="error">{error}</p>}
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <InputField name="name" label="name" type="text"  id="name" />
-        <InputField name="username" label="Username" type="text"  id="username" />
-        <InputField name="email" label="Email" type="email"  id="email" />
-        <InputField
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-        />
-        <InputField
-          name="confirmPassword"
-          label="Re-Enter Password"
-          type="password"
-          id="conirmPassword"
-        />
-        <span className={styles.span}>
-          <a href="#">Forgot password?</a>
-        </span>
-        <input className={styles.submit} type="submit" value="Log in" />
-        <span className={styles.span}>
-          Already have an account?  <Link href = '/login'>Sign INn</Link>
-        </span>
-      </form>
-    </section>
+    <div className="font-[sans-serif] relative">
+      {/* <div className="h-[240px] font-[sans-serif]">
+        <img src="https://readymadeui.com/cardImg.webp" alt="Banner Image" className="w-full h-full object-cover" />
+      </div> */}
+
+      <div className="m-4">
+        <form onSubmit={handleSubmit} className=" bg-opacity-70 bg-white shadow-[0_2px_16px_-3px_rgba(6,81,237,0.3)] max-w-xl w-full mx-auto p-8 rounded-2xl">
+          <div className="mb-12">
+            <h3 className="text-gray-800 text-3xl font-extrabold text-center">
+              Register
+            </h3>
+          </div>
+
+          <div>
+            {/* <label className="text-gray-800 text-xs block mb-2">Full Name</label> */}
+            <div className="relative flex items-center">
+              <input
+                name="name"
+                type="text"
+                required
+                className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800"                placeholder="Enter name"
+              />
+            </div>
+          </div>
+
+          <div className="mt-8">
+            {/* <label className="text-gray-800 text-xs block mb-2">Email</label> */}
+            <div className="relative flex items-center">
+              <input
+                name="email"
+                type="text"
+                required
+                className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800"
+                placeholder="Enter email"
+              />
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <div className="relative flex items-center">
+              <input
+                name="password"
+                type="password"
+                required
+ className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800"
+                placeholder="Enter password"
+              />
+            </div>
+          </div>
+          <div className="mt-8">
+            <div className="relative flex items-center">
+              <input
+                name="confirmPassword"
+                type="password"
+                required
+ className="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 px-2 py-3 outline-none placeholder:text-gray-800"
+                placeholder="Re-enter password"
+              />
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <button
+              type="submit"
+                className="w-full py-2.5 px-4 text-sm font-semibold tracking-wider rounded-full text-white bg-gray-800 hover:bg-[#222] focus:outline-none"
+            >
+              Register
+            </button>
+            <p className="text-gray-800 text-sm mt-8 text-center">
+              Already have an account?{" "}
+              <Link
+                href="/register"
+                className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap"
+              >
+                Login here
+              </Link>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 
