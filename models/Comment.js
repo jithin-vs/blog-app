@@ -6,11 +6,7 @@ const commentSchema = new mongoose.Schema({
     ref: 'Blog',
     required: true,
   },
-  postTime: {
-    type: Date,
-    default: Date.now,
-  },
-  text: {
+  comment: {
     type: String,
     required: true,
   },
@@ -22,6 +18,7 @@ const commentSchema = new mongoose.Schema({
     },
     profilePic: {
       type: String,
+      default:'',
     },
     name: {
       type: String,

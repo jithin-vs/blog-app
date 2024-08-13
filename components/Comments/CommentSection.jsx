@@ -1,13 +1,32 @@
-import React from "react";
+'use client'
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PostButton from "../Buttons/PostButton";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 
 import ReplyButton from "../Buttons/ReplyButton";
 import SendButton from "../Buttons/SendButton";
+import Dropdown from "../tester/test";
 
-const CommentSection = () => {
-  const [comment, setComment] = useState('');
+const CommentSection = ({ blogId }) => {
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
+  const [showReply, setShowReply] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await axios.get("/api/getComments");
+        console.log(response.data);
+        setComments(response.data.comments);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+
+    fetchComments();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,24 +35,35 @@ const CommentSection = () => {
       alert("Comment can't be empty!");
       return;
     }
-
+    const commentData = {
+      blogId: blogId,
+      comment: comment,
+    };
+    console.log(commentData);
     try {
-      const response = await axios.post('/api/PostComments', {
-        body: JSON.stringify({ comment }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        alert('Comment posted successfully!');
-        setComment(''); // Clear the textarea
+      const response = await axios.post("/api/postComments", commentData);
+      console.log(response);
+      if (response.status === 200) {
+        alert("Comment posted successfully!");
+        setComment("");
       } else {
-        alert('Failed to post comment.');
+        alert("Failed to post comment.");
       }
     } catch (error) {
-      console.error('Error posting comment:', error);
-      alert('An error occurred. Please try again later.');
+      console.error("Error posting comment:", error);
+      alert("An error occurred. Please try again later.");
     }
   };
+
+  const changeDateFormat = (postTime) => {
+    const options = { day: "numeric", month: "short", year: "numeric" };
+    return new Date(postTime).toLocaleDateString("en-GB", options);
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  }; 
+
   return (
     <section className="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
       <div className="max-w-2xl mx-auto px-4">
@@ -49,7 +79,7 @@ const CommentSection = () => {
             </label>
             <textarea
               id="comment"
-              rows="6"
+              rows="3"
               className="px-0 w-full resize-none text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
               placeholder="Write a comment..."
               value={comment}
@@ -82,49 +112,7 @@ const CommentSection = () => {
                 </time>
               </p>
             </div>
-            <button
-              id="dropdownComment1Button"
-              data-dropdown-toggle="dropdownComment1"
-              className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-              type="button"
-            >
-              <BiDotsHorizontalRounded size={20}/>
-            </button>
-            {/* Dropdown menu */}
-            <div
-              id="dropdownComment1"
-              className="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
-            >
-              <ul
-                className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                aria-labelledby="dropdownMenuIconHorizontalButton"
-              >
-                <li>
-                  <a
-                    href="#"
-                    className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Edit
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Remove
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Report
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <Dropdown /> 
           </footer>
           <p className="text-gray-500 dark:text-gray-400">
             Very straight-to-point article. Really worth time reading. Thank
@@ -161,7 +149,7 @@ const CommentSection = () => {
               className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               type="button"
             >
-              <BiDotsHorizontalRounded size={20}/>
+              <BiDotsHorizontalRounded size={20} />
             </button>
             <div
               id="dropdownComment2"
@@ -205,6 +193,41 @@ const CommentSection = () => {
           </p>
           <ReplyButton />
         </article>
+        {comments.map((comment) => (
+          <article
+            key={comment._id}
+            className="p-6 text-base bg-white rounded-lg dark:bg-gray-900 mb-4"
+          >
+            <footer className="flex justify-between items-center mb-2">
+              <div className="flex items-center">
+                <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                  <img
+                    className="mr-2 w-6 h-6 rounded-full"
+                    src={comment.userImage}
+                    alt={comment.author.name}
+                  />
+                  {comment.author.name}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <time
+                    pubdate="true"
+                    dateTime={comment.createdAt}
+                    title={new Date(comment.createdAt).toLocaleDateString(
+                      "en-GB"
+                    )}
+                  >
+                    {changeDateFormat(comment.createdAt)}
+                  </time>
+                </p>
+              </div>
+              <Dropdown /> 
+            </footer>
+            <p className="text-gray-500 dark:text-gray-400">
+              {comment.comment}
+            </p>
+            <ReplyButton />
+          </article>
+        ))}
       </div>
     </section>
   );

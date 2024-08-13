@@ -5,7 +5,6 @@ import bcrypt from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 
-
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -39,7 +38,7 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.email = user.email; 
+        token.profilePic = user.profilePic || process.env.PROFILE_PATH; 
       }
       return token;
     },
@@ -47,6 +46,7 @@ export const authOptions = {
 
       if (token) {
         session.user.email = token.email; 
+        session.user.profilePic = token.profilePic;
       }
       return session;
     },

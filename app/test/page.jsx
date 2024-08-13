@@ -1,9 +1,13 @@
+'use client'
+
 import BlogPage from "@/components/BlogSection/BlogPage";
 import CommentSection from "@/components/Comments/CommentSection";
 import NewPostcard from "@/components/NewPostcard/NewPostcard";
 import React from "react";
 import { MdOutlineEmail } from "react-icons/md";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
 import Link from "next/link";
+import Dropdown from "@/components/tester/test";
 
 const page = () => {
   return (
@@ -15,7 +19,7 @@ const page = () => {
       </div> */}
 
       <div className="m-4">
-        <form  className=" bg-opacity-70 bg-white shadow-[0_2px_16px_-3px_rgba(6,81,237,0.3)] max-w-xl w-full mx-auto p-8 rounded-2xl">
+        <form className=" bg-opacity-70 bg-white shadow-[0_2px_16px_-3px_rgba(6,81,237,0.3)] max-w-xl w-full mx-auto p-8 rounded-2xl">
           <div className="mb-12">
             <h3 className="text-gray-800 text-3xl font-bold text-center">
               Register
@@ -23,7 +27,10 @@ const page = () => {
           </div>
 
           <div>
-            <label className="text-gray-800 text-xs block mb-2">Full Name</label>
+            <Dropdown></Dropdown>
+            <label className="text-gray-800 text-xs block mb-2">
+              Full Name
+            </label>
             <div className="relative flex items-center">
               <input
                 name="name"
