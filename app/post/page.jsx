@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import axios from "axios";
 import Image from "next/image";
+import Loader from "@/components/Loading/Loader";
 
 const BlogPage = () => {
   const [showComments, setShowComments] = useState(false);
@@ -17,7 +18,7 @@ const BlogPage = () => {
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await axios.get(`/api/blogs`);
+        const response = await axios.get(`/api/blogs`,{ cache: false });
         setBlogData(response.data.blogs[0]);
         console.log(blogData);
         setLoading(false);
@@ -32,7 +33,7 @@ const BlogPage = () => {
   },[]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader /> ;
   }
 
   if (error) {
@@ -45,7 +46,7 @@ const BlogPage = () => {
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="container px-6 py-10 mx-auto">
-        <div className="lg:flex lg:-mx-6">
+        <div className="lg:flex flex-col lg:-mx-6">
           <div className="lg:w-3/4 lg:px-6">
             {blogData.imageUrl && (
               <Image

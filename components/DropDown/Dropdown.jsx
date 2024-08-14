@@ -1,7 +1,10 @@
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 
-const Dropdown = () => {
+const Dropdown = ({ blogId ,commentId,onDelete }) => {
+  const router = useRouter();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -14,9 +17,24 @@ const Dropdown = () => {
     console.log('Edit action triggered');
   };
 
-  const handleRemove = () => {
-    // Action for Remove
-    console.log('Remove action triggered');
+  const handleRemove = async () => {
+    try {
+
+      const response = await axios.delete("/api/comments", {
+        data: { blogId, commentId },
+      });
+      console.log(response);
+      if (response.status === 200) {
+        alert("Comment deleted successfully!");
+        onDelete(commentId);
+        router.refresh();
+      } else {
+        alert("Failed to delete comment.");
+      }
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+      alert("An error occurred. Please try again later.");
+    }
   };
 
   const handleReport = () => {
@@ -76,3 +94,4 @@ const Dropdown = () => {
 };
 
 export default Dropdown;
+    

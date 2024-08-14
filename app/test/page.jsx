@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import BlogPage from "@/components/BlogSection/BlogPage";
 import CommentSection from "@/components/Comments/CommentSection";
@@ -7,7 +7,7 @@ import React from "react";
 import { MdOutlineEmail } from "react-icons/md";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import Link from "next/link";
-import Dropdown from "@/components/tester/test";
+import Dropdown from "@/components/DropDown/Dropdown";
 
 const page = () => {
   return (
@@ -27,7 +27,7 @@ const page = () => {
           </div>
 
           <div>
-            <Dropdown></Dropdown>
+            <Dropdown />
             <label className="text-gray-800 text-xs block mb-2">
               Full Name
             </label>

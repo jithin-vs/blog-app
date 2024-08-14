@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GoThumbsup } from "react-icons/go";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import Comment from "../Comments/Comment";
@@ -10,7 +10,35 @@ import Comment from "../Comments/Comment";
 const BlogCard = ({ title, description, image, author }) => {
   const [likeCount, setLikeCount] = useState(0);
   const [showComments, setShowComments] = useState(false);
+  const [blogData, setBlogData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      try {
+        const response = await axios.get(`/api/blogs`,{ cache: false });
+        setBlogData(response.data.blogs[0]);
+        console.log(blogData);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching blog data:", err);
+        setError("Failed to load blog post.");
+        setLoading(false);
+      }
+    };
 
+    fetchBlogData();
+  }, []);
+
+  if (loading) {
+    return <Loader /> ;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+  
   const handleLike = () => {
     if (likeCount === 0) return setLikeCount(1);
     return setLikeCount(0);
@@ -66,7 +94,7 @@ const BlogCard = ({ title, description, image, author }) => {
                 21 SEP 2015
               </span>
             </div>
-            <div className="flex gap-4 items-center">
+            {/* <div className="flex gap-4 items-center">
               <button
                 type="button"
                 onClick={handleLike}
@@ -82,7 +110,7 @@ const BlogCard = ({ title, description, image, author }) => {
               >
                 <HiOutlineChatBubbleOvalLeft size={18} className="mr-2" />
               </button>
-            </div>
+            </div> */}
           </div>
           {/* <div className="mt-4 flex flex-1">
               <div className="flex-grow w-full">

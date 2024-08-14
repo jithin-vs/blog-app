@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PostButton from "../Buttons/PostButton";
@@ -6,7 +6,7 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 
 import ReplyButton from "../Buttons/ReplyButton";
 import SendButton from "../Buttons/SendButton";
-import Dropdown from "../tester/test";
+import Dropdown from "../DropDown/Dropdown";
 
 const CommentSection = ({ blogId }) => {
   const [comment, setComment] = useState("");
@@ -17,7 +17,7 @@ const CommentSection = ({ blogId }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await axios.get("/api/getComments");
+        const response = await axios.get("/api/comments");
         console.log(response.data);
         setComments(response.data.comments);
       } catch (error) {
@@ -41,7 +41,7 @@ const CommentSection = ({ blogId }) => {
     };
     console.log(commentData);
     try {
-      const response = await axios.post("/api/postComments", commentData);
+      const response = await axios.post("/api/omments", commentData);
       console.log(response);
       if (response.status === 200) {
         alert("Comment posted successfully!");
@@ -54,7 +54,9 @@ const CommentSection = ({ blogId }) => {
       alert("An error occurred. Please try again later.");
     }
   };
-
+  const handleDeleteComment = (commentId) => {
+    setComments(comments.filter((comment) => comment._id !== commentId));
+  };
   const changeDateFormat = (postTime) => {
     const options = { day: "numeric", month: "short", year: "numeric" };
     return new Date(postTime).toLocaleDateString("en-GB", options);
@@ -62,11 +64,11 @@ const CommentSection = ({ blogId }) => {
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
-  }; 
+  };
 
   return (
     <section className="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
-      <div className="max-w-2xl mx-auto px-4">
+      <div className="max-w-2xl mr-4 px-4">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
             Discussion (20)
@@ -112,7 +114,7 @@ const CommentSection = ({ blogId }) => {
                 </time>
               </p>
             </div>
-            <Dropdown /> 
+            <Dropdown />
           </footer>
           <p className="text-gray-500 dark:text-gray-400">
             Very straight-to-point article. Really worth time reading. Thank
@@ -220,7 +222,7 @@ const CommentSection = ({ blogId }) => {
                   </time>
                 </p>
               </div>
-              <Dropdown /> 
+              <Dropdown blogId={blogId} commentId={comment._id} onDelete={handleDeleteComment}/>
             </footer>
             <p className="text-gray-500 dark:text-gray-400">
               {comment.comment}
