@@ -23,6 +23,7 @@ export async function POST(req) {
       email,
       username,
       password: hashedPassWord,
+      profilePic: process.env.PROFILE_PATH
     });
     if (user) {
       return NextResponse.json({ message: "success!!" }, { status: 200 });

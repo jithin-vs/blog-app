@@ -61,6 +61,7 @@ export async function POST(req) {
       return NextResponse.json(
         {
           message: "Comment added !!",
+          comment: commentFlag,
         },
         { status: 200 }
       );

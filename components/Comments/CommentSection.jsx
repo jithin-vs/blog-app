@@ -41,10 +41,11 @@ const CommentSection = ({ blogId }) => {
     };
     console.log(commentData);
     try {
-      const response = await axios.post("/api/omments", commentData);
+      const response = await axios.post("/api/comments", commentData);
       console.log(response);
       if (response.status === 200) {
         alert("Comment posted successfully!");
+        setComments((prevComments) => [...prevComments, response.data.comment]);
         setComment("");
       } else {
         alert("Failed to post comment.");
@@ -71,7 +72,7 @@ const CommentSection = ({ blogId }) => {
       <div className="max-w-2xl mr-4 px-4">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
-            Discussion (20)
+            Discussion 
           </h2>
         </div>
         <form className="mb-6" onSubmit={handleSubmit}>

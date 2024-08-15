@@ -11,6 +11,7 @@ import Loader from "@/components/Loading/Loader";
 
 const BlogPage = () => {
   const [showComments, setShowComments] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const [blogData, setBlogData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -43,6 +44,12 @@ const BlogPage = () => {
     const options = { day: "numeric", month: "short", year: "numeric" };
     return new Date(postTime).toLocaleDateString("en-GB", options);
   };
+  
+  const handleLike = async() =>{
+     if(likeCount===0) return setLikeCount(1);
+     return setLikeCount(0);
+  }
+
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="container px-6 py-10 mx-auto">
@@ -93,8 +100,8 @@ const BlogPage = () => {
             </div>
           </div>
           <div className="flex gap-4 items-center mt-4">
-            <LikeButton likes={blogData.likes} />
-            <button
+            <LikeButton likes={blogData.likes} blogId={blogData._id} onLike ={handleLike}/>
+            <button 
               type="button"
               onClick={() => setShowComments((prev) => !prev)}
               className="flex items-center px-4 py-2 text-sm font-medium text-gray-800 bg-gray-200 rounded hover:bg-gray-300"
