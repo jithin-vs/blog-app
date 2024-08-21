@@ -1,6 +1,7 @@
 import { connectDB } from "@/lib/mongodb";
 import Like from "@/models/Like";
 import { NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
 
 export async function POST(req) {
 
@@ -33,7 +34,6 @@ export async function POST(req) {
       author: {
         userId: userId,
         name: name,
-        profilePic: profilePic || process.env.PROFILE_PATH ,
       },
     });
 

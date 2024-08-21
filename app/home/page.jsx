@@ -9,13 +9,13 @@ const Home = () => {
   return (
     <div className="flex flex-col h-screen">
       <Header />
-      <div className="flex flex-1">
-        <SideBar className="w-1/4" />
+      {/* <div className="flex flex-1">
+        <SideBar className="w-1/4" /> */}
         <div className="flex flex-col flex-1 gap-4"> 
           <NewPostcard className="w-full" />
           <BlogCard className="flex-1" />
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );  
 };

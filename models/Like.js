@@ -19,6 +19,7 @@ const likeSchema = new mongoose.Schema({
     },
     profilePic: {
       type: String,
+      default:process.env.PROFILE_PATH,
     },
     name: {
       type: String,

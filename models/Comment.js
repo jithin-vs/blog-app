@@ -18,7 +18,7 @@ const commentSchema = new mongoose.Schema({
     },
     profilePic: {
       type: String,
-      default:'',
+      default:process.env.PROFILE_PATH,
     },
     name: {
       type: String,

@@ -40,7 +40,7 @@ export async function POST(req) {
     const buffer = Buffer.from(await image.arrayBuffer());
     const filename = Date.now() + generateUniqueId() + "-" + image.name;
 
-    const fileDir = `/uploads/${userId}/`;
+    const fileDir = `/public/pics/${userId}/`;
     if (!fs.existsSync(fileDir)) {
       fs.mkdirSync(fileDir, { recursive: true });
     }

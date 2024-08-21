@@ -11,95 +11,53 @@ import Dropdown from "@/components/DropDown/Dropdown";
 
 const page = () => {
   return (
-    // <BlogPage></BlogPage>
-    // <CommentSection></CommentSection>
-    <div className="font-[sans-serif] relative">
-      {/* <div className="h-[240px] font-[sans-serif]">
-        <img src="https://readymadeui.com/cardImg.webp" alt="Banner Image" className="w-full h-full object-cover" />
-      </div> */}
+    <div className="w-full max-h-[50vh] overflow-auto bg-white shadow-md dark:bg-gray-800 flex items-center justify-center">
+      {image && (
+        <Image
+          className="object-cover w-full h-64"
+          src={image}
+          alt="Article"
+          width={500}
+          height={300}
+        />
+      )}
 
-      <div className="m-4">
-        <form className=" bg-opacity-70 bg-white shadow-[0_2px_16px_-3px_rgba(6,81,237,0.3)] max-w-xl w-full mx-auto p-8 rounded-2xl">
-          <div className="mb-12">
-            <h3 className="text-gray-800 text-3xl font-bold text-center">
-              Register
-            </h3>
-          </div>
+      <div className="p-6">
+        <div>
+          <span className="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">
+            Product
+          </span>
+          <Link
+            href="/post"
+            className="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline"
+            role="link"
+          >
+            I Built A Successful Blog In One Year
+          </Link>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie
+            parturient et sem ipsum volutpat vel. Natoque sem et aliquam mauris
+            egestas quam volutpat viverra. In pretium nec senectus erat. Et
+            malesuada lobortis.
+          </p>
+        </div>
 
-          <div>
-            <Dropdown />
-            <label className="text-gray-800 text-xs block mb-2">
-              Full Name
-            </label>
-            <div className="relative flex items-center">
-              <input
-                name="name"
-                type="text"
-                required
-                className="w-full bg-transparent text-sm text-gray-800 border-b border-gray-300 focus:border-blue-500 px-2 py-3 outline-none placeholder-slate-600"
-                placeholder="Enter name"
-              />
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <label className="text-gray-800 text-xs block mb-2">Email</label>
-            <div className="relative flex items-center">
-              <input
-                name="email"
-                type="text"
-                required
-                className="w-full bg-transparent text-sm text-gray-800 border-b border-gray-300 focus:border-blue-500 px-2 py-3 outline-none placeholder-slate-600"
-                placeholder="Enter email"
-              />
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <label className="text-gray-800 text-xs block mb-2">Password</label>
-            <div className="relative flex items-center">
-              <input
-                name="password"
-                type="password"
-                required
-                className="w-full bg-transparent text-sm text-gray-800 border-b border-gray-300 focus:border-blue-500 px-2 py-3 outline-none placeholder-slate-600"
-                placeholder="Enter password"
-              />
-            </div>
-          </div>
-          <div className="mt-8">
-            <label className="text-gray-800 text-xs block mb-2">
-              Re-Enter Password
-            </label>
-            <div className="relative flex items-center">
-              <input
-                name="confirmPassword"
-                type="password"
-                required
-                className="w-full bg-transparent text-sm text-gray-800 border-b border-gray-300 focus:border-blue-500 px-2 py-3 outline-none placeholder-slate-600"
-                placeholder="Re-enter password"
-              />
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <button
-              type="submit"
-              className="w-full shadow-xl py-2.5 px-5 text-sm font-semibold tracking-wider rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none transition-all"
-            >
-              Register
-            </button>
-            <p className="text-gray-800 text-sm mt-8 text-center">
-              Already have an account?{" "}
-              <Link
-                href="/register"
-                className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap"
+        <div className="mt-4 ">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <a
+                href="#"
+                className="mx-2 font-semibold text-gray-700 dark:text-gray-200"
+                role="link"
               >
-                Login here
-              </Link>
-            </p>
+                Jone Doe
+              </a>
+              <span className="text-xs mt-1 text-gray-700 dark:text-gray-300">
+                21 SEP 2015
+              </span>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
