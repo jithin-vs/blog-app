@@ -21,7 +21,9 @@ const BlogPage = ({params}) => {
       try {
         const response = await axios.get(`/api/blogs/${params.id}`,{ cache: false });
         setBlogData(response.data.blogs[0]);
-        console.log(blogData);
+        if (response.status === 201) {
+          console.log(response.data);
+        }
         setLoading(false);
       } catch (err) {
         console.error("Error fetching blog data:", err);
@@ -45,10 +47,12 @@ const BlogPage = ({params}) => {
     return new Date(postTime).toLocaleDateString("en-GB", options);
   };
   
-  const handleLike = async() =>{
-     if(likeCount===0) return setLikeCount(1);
-     return setLikeCount(0);
-  }
+  const handleLike = () => {
+    setBlogData(prevData => ({
+      ...prevData,
+      likes: prevData.likes + 1
+    }));
+  };
 
   return (
     <section className="bg-white dark:bg-gray-900">
@@ -107,7 +111,7 @@ const BlogPage = ({params}) => {
               className="flex items-center px-4 py-2 text-sm font-medium text-gray-800 bg-gray-200 rounded hover:bg-gray-300"
             >
               <HiOutlineChatBubbleOvalLeft size={18} className="mr-2" />
-              Comments ({blogData.numComments})
+              Comments ({blogData.comments})
             </button>
           </div>
           {showComments && <CommentSection blogId={blogData._id} />}

@@ -58,6 +58,10 @@ export async function POST(req) {
       },
     });
     if (commentFlag) {
+      await Blog.findByIdAndUpdate(
+        commentFlag.blogId, 
+        { $inc: { comments: 1 } }
+      );
       return NextResponse.json(
         {
           message: "Comment added !!",

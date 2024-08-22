@@ -4,15 +4,22 @@ import axios from "axios";
 import React, { useState } from "react";
 import { GoThumbsup } from "react-icons/go";
 
-const LikeButton = ({ likes, blogId}) => {
+const LikeButton = ({ likes, blogId,onLike}) => {
   const submitLike = async () => {
     try {
+
       const likeData = {
-        id: blogId,
+        referenceId: blogId,
         onModel: "Blog",
       };
-      const response = await axios.post("/api/comments/like", { likeData });
-       
+      const response = await axios.post("/api/like", likeData );
+      if (response.status ===200) {
+        alert(`${response.status}:${response.data.message}`);
+        console.log(response.data);
+        if (response.data.isLiked) {
+          onLike();
+        }
+      }
     } catch (error) {
       console.error("Failed to like comment:", error);
       alert("There was an error liking the comment.");

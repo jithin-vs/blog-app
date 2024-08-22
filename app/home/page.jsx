@@ -3,11 +3,13 @@ import styles from "./home.module.css";
 import BlogCard from "@/components/BlogCard/BlogCard";
 import SideBar from "@/components/SideBar/SideBar";
 import Header from "@/components/Header/Header";
+import Page from "../test/page";
 import NewPostcard from "@/components/NewPostcard/NewPostcard";
 
 const Home = () => {
   return (
     <div className="flex flex-col h-screen">
+      {/* <Page /> */}
       <Header />
       {/* <div className="flex flex-1">
         <SideBar className="w-1/4" /> */}

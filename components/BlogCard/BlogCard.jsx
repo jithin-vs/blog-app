@@ -21,7 +21,6 @@ const BlogCard = ({ params }) => {
       try {
         const response = await axios.get(`/api/blogs`,{ cache: false });
         setBlogData(response.data.blogs[0]);
-        console.log(blogData);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching blog data:", err);

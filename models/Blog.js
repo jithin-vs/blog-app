@@ -19,7 +19,7 @@ const blogSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    numComments: {
+    omments: {
       type: Number,
       default: 0,
     },
