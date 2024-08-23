@@ -19,7 +19,7 @@ const blogSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    omments: {
+    comments: {
       type: Number,
       default: 0,
     },
@@ -40,7 +40,7 @@ const blogSchema = new mongoose.Schema(
     },
     imageUrl: {
       type: String,
-      default: '', 
+      default:""
     },
   },
   { timestamps: true }

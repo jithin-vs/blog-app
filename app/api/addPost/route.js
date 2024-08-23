@@ -25,7 +25,7 @@ export async function POST(req) {
     await connectDB();
 
     const formData = await req.formData();
-    const image = formData.get("image") || null;
+    const imageUrl = formData.get("imageUrl") || null;
     const title = formData.get("title");
     const content = formData.get("content");
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
@@ -33,22 +33,36 @@ export async function POST(req) {
     if (!token) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
-    console.log(token);
+
     const userId = token.sub;
     const name = token.name;
     const profilePic = token.profilePic || "";
-    const buffer = Buffer.from(await image.arrayBuffer());
-    const filename = Date.now() + generateUniqueId() + "-" + image.name;
 
-    const fileDir = `/public/pics/${userId}/`;
-    if (!fs.existsSync(fileDir)) {
-      fs.mkdirSync(fileDir, { recursive: true });
-    }
-    const filePath = path.join(fileDir, filename);
-    const newFilePath = transformImagePath(filePath)
-    await writeFile(path.join(process.cwd(), filePath), buffer);
-    console.log("success!!");
+    // const buffer = Buffer.from(await image.arrayBuffer());
+    // const filename = Date.now() + generateUniqueId() + "-" + image.name;
 
+    // const fileDir = `/pics/${userId}/`;
+    // if (!fs.existsSync(fileDir)) {
+    //   fs.mkdirSync(fileDir, { recursive: true });
+    // }
+    // const filePath = path.join(fileDir, filename);
+    // // const newFilePath = transformImagePath(filePath)
+    // const newFilePath = {
+    //   image: "buffer value",
+    //   contentType:"image type"
+    // }
+    // await writeFile(path.join(process.cwd(), filePath), buffer);
+    // console.log("success!!");
+
+    // const buffer = image ? Buffer.from(await image.arrayBuffer()) : null;
+    // const filename = image ? Date.now() + generateUniqueId() + "-" + image.name : null;
+    // const mimeType = image ? image.type : null;
+
+    // const imageToSave = image ? {
+    //   img: buffer,
+    //   contentType: mimeType
+    // } : null;
+  
     await Blog.create({
       title,
       content,
@@ -57,7 +71,7 @@ export async function POST(req) {
         name: name,
         profilePic,
       },
-      imageUrl: newFilePath,
+      imageUrl: imageUrl,
     });
     return NextResponse.json({ message: "Success!!" }, { status: 201 });
   } catch (error) {

@@ -1,10 +1,13 @@
 "use client";
 import React, { useState, useRef } from "react";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { ref ,uploadBytes,getDownloadURL } from "@firebase/storage";
 import { LuImage } from "react-icons/lu";
 import { MdOutlineEmojiEmotions, MdOutlinePoll } from "react-icons/md";
 import { FiX } from "react-icons/fi";
 import PostButton from "../Buttons/PostButton";
+import { storage } from "@/firebase.js";
 
 const NewPostcard = () => {
   const [blogPost, setBlogPost] = useState({
@@ -51,6 +54,21 @@ const NewPostcard = () => {
     }));
   };
 
+  const handleImageUpload = async(image) => {
+    const filename = Date.now() + uuidv4() + "-" + image.name;
+    const imageRef = ref(storage, `images/${filename}`);
+
+    try {
+      await uploadBytes(imageRef, image);
+      const url = await getDownloadURL(imageRef);
+      return url;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,8 +76,10 @@ const NewPostcard = () => {
     console.log("image :", blogPost.image)
     formData.append("title", blogPost.title);
     formData.append("content", blogPost.content);
+
     if (blogPost.image) {
-      formData.append("image", blogPost.image);
+      const imageUrl = await handleImageUpload(blogPost.image);
+      formData.append("imageUrl", imageUrl);
     }
 
     try {
