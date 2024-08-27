@@ -18,7 +18,7 @@ const BlogCard = ({ params }) => {
     const fetchBlogData = async () => {
       try {
         const response = await axios.get(`/api/blogs`, { cache: false });
-        setBlogData(response.data.blogs[0]);
+        setBlogData(response.data.blogs);
         console.log(response.data.blogs);
         setLoading(false);
       } catch (err) {
@@ -48,7 +48,8 @@ const BlogCard = ({ params }) => {
 
         {blogData && blogData.length  ? (
           blogData.map((blog, index) => (
-            <div key={index} className="mt-8 lg:-mx-6 lg:flex lg:items-center">
+<div key={index} className="mt-8 lg:mx-6 lg:flex lg:items-center space-y-8 lg:space-y-0 lg:space-x-8">
+
               <Image
                 src={blog.imageUrl || "https://via.placeholder.com/600"}
                 alt="Blog Image"
