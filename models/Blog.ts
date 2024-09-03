@@ -1,6 +1,20 @@
-import mongoose from "mongoose";
+import mongoose, { model, Document, Schema, Types } from "mongoose";
 
-const blogSchema = new mongoose.Schema(
+export interface IBlog extends Document {
+  title: Types.ObjectId;
+  content: string;
+  postTime: Date;
+  likes: number;
+  comments: number;
+  author: {
+    userId: Types.ObjectId;
+    name: string;
+    profilePic: string;
+  };
+  imageUrl: string;
+}
+
+const blogSchema = new Schema(
   {
     title: {
       type: String,
@@ -25,27 +39,27 @@ const blogSchema = new mongoose.Schema(
     },
     author: {
       userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        type: Types.ObjectId,
+        ref: "User",
         required: true,
-      },
-      profilePic: {
-        type: String,
-        default:'',
       },
       name: {
         type: String,
         required: true,
       },
+      profilePic: {
+        type: String,
+        default: "",
+      },
     },
     imageUrl: {
       type: String,
-      default:""
+      default: "",
     },
   },
   { timestamps: true }
-); 
+);
 
-const Blog = mongoose.models.Blog || mongoose.model('Blog', blogSchema);
+const Blog = mongoose.models.Blog || model("Blog", blogSchema);
 
 export default Blog;

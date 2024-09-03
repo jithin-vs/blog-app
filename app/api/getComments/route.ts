@@ -1,27 +1,21 @@
-import Blog from "@/models/Blog";
 import { getToken } from "next-auth/jwt";
-import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/mongodb";
+import { NextRequest, NextResponse } from "next/server";
+import { getComments } from "./dbFunctions";
 
-export async function GET(req,{params}) {
+export async function GET(req: NextRequest) {
   try {
-    const blogId = params.id;
-    await connectDB();
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
     if (!token) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
-    console.log();
-    const userId = token.sub;
-    const username = token.username;
-    const blogs = await Blog.find({ _id: blogId }).sort({ createdAt: -1 });
+    const comments = getComments();
     return NextResponse.json(
       {
         message: "Success!!",
-        blogs: blogs,
+        comments: comments,
       },
-      { status: 201 }
+      { status: 200 }
     );
   } catch (error) {
     console.log("Error creating blog post:", error);

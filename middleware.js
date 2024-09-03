@@ -4,6 +4,7 @@ export { default } from 'next-auth/middleware';
 
 // export function middleware(req) {
 //     const token = req.headers.Auhthorization;
+//     console.log("here==",req.headers);
 //     if (!token) {
 //         return NextResponse.redirect(new URL('/login', req.url));
 //     }

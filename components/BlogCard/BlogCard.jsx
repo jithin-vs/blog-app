@@ -53,7 +53,7 @@ const BlogCard = ({ params }) => {
               <Image
                 src={blog.imageUrl || "https://via.placeholder.com/600"}
                 alt="Blog Image"
-                width={500}
+                width={400}
                 height={300}
                 className="object-cover w-full lg:mx-6 lg:w-1/2 rounded-xl h-72 lg:h-96"
               />

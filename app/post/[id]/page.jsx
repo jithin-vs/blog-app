@@ -20,7 +20,7 @@ const BlogPage = ({params}) => {
     const fetchBlogData = async () => {
       try {
         const response = await axios.get(`/api/blogs/${params.id}`,{ cache: false });
-        setBlogData(response.data.blogs[0]);
+        setBlogData(response.data.blogs);
         if (response.status === 201) {
           console.log(response.data);
         }
